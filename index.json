@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "commit": "b9b2b468f9027b48591497c11001cd5518758b67",
+  "updatedAt": "2026-06-02T17:19:44.104Z",
+  "sites": [
+    {
+      "id": "hackernews",
+      "name": "Hacker News",
+      "domain": "news.ycombinator.com",
+      "description": "Fetches the current Hacker News top stories from the public Firebase API.",
+      "transport": "http",
+      "auth": false,
+      "path": "sites/hackernews",
+      "files": [
+        {
+          "name": "index.js",
+          "sha256": "88428de3247cb37ca7e25fdf1d55089a71ffc8f2883cdd7bd8382770aad07b5b"
+        }
+      ]
+    }
+  ]
+}
