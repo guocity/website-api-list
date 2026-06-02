@@ -26,6 +26,9 @@ website-api-list/
 
 ## Adding a site
 
+See **[instructions.md](instructions.md)** for the full guide (all site fields,
+the `ctx` API, login sites, local testing, and TypeScript authoring). In short:
+
 1. Create `sites/<your-id>/index.js`. Default-export a **plain object** — no
    imports from the `website-api` package (the host normalizes it for you):
 
