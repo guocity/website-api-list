@@ -1,0 +1,35 @@
+name: Generate index.json
+
+# Regenerate the catalog whenever site code changes, so index.json always
+# matches the committed files (and their hashes) on the default branch.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "sites/**"
+      - "scripts/generate-index.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/generate-index.mjs
+      - name: Commit refreshed index.json
+        run: |
+          if git diff --quiet index.json; then
+            echo "index.json unchanged"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add index.json
+            git commit -m "chore: regenerate index.json"
+            git push
+          fi

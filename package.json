@@ -1,0 +1,9 @@
+{
+  "name": "website-api-list",
+  "private": true,
+  "type": "module",
+  "description": "A public registry of installable sites for the website-api CLI",
+  "scripts": {
+    "generate": "node scripts/generate-index.mjs"
+  }
+}
