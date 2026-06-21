@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "commit": "571144f4cd43ec4d55bbab0ffd18cddf5d969a11",
-  "updatedAt": "2026-06-21T16:11:00.526Z",
+  "commit": "79429be1a0ef3d124364867c9300599153c72502",
+  "updatedAt": "2026-06-21T16:17:33.884Z",
   "sites": [
     {
       "id": "hackernews",
@@ -15,6 +15,21 @@
         {
           "name": "index.js",
           "sha256": "88428de3247cb37ca7e25fdf1d55089a71ffc8f2883cdd7bd8382770aad07b5b"
+        }
+      ]
+    },
+    {
+      "id": "ifconfig.me",
+      "name": "ifconfig.me",
+      "domain": "ifconfig.me",
+      "description": "Get your public IP address and connection details from ifconfig.me",
+      "transport": "http",
+      "auth": false,
+      "path": "sites/ifconfig.me",
+      "files": [
+        {
+          "name": "index.js",
+          "sha256": "2c95a1e00b7fc7b2a927d37381c112540d886618ce8c25c9b484dc67e86d7980"
         }
       ]
     },
