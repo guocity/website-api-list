@@ -122,9 +122,13 @@ positionals: [
 | `ctx.credentials()` | Saved Chrome username/password for the domain. |
 | `ctx.userAgent()` | Resolved User-Agent. |
 | `ctx.http.json/text/html/sse/raw(url, init?)` | HTTP with cookies + UA auto-injected. |
+| `ctx.loadHtml(html)` | Loads HTML string into the host's bundled cheerio ($). |
 | `ctx.browser()` | Connects to Chrome over CDP, returns a Playwright `Page`. |
 | `ctx.eval(fn)` | Sugar for `(await ctx.browser()).evaluate(fn)`. |
 | `ctx.save(filename, content)` | Writes a file to `--out-dir` (or cwd); returns the path. |
+
+> [!TIP]
+> **Cheerio HTML Parsing**: Since installed extensions live in your config folder, they cannot resolve their own `node_modules` at runtime. Avoid importing `cheerio` directly (`import * as cheerio from "cheerio"`). Instead, use the host's built-in cheerio parser: `const $ = await ctx.loadHtml(html)`.
 
 ---
 
@@ -214,6 +218,12 @@ Then anyone can:
 npx website-api ext search your-site
 npx website-api ext install your-site
 npx website-api your-site
+```
+
+Or run/update and execute it directly from the registry in one command:
+
+```bash
+npx website-api ext run your-site [args...]
 ```
 
 ---

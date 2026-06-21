@@ -40,6 +40,7 @@ npx website-api ext <subcommand>
 | `ext search [query]` | Search configured registries for installable sites |
 | `ext info <id>` | Show full catalog details for one site |
 | `ext install <id>` | Download, verify, and install a site into your extensions folder |
+| `ext run <id> [args...]` | Download/update a site from the registry and run it immediately |
 | `ext list` | List sites you've installed from registries |
 | `ext remove <id>` | Remove an installed site |
 | `ext update [id]` | Re-install installed sites whose registry commit changed |
@@ -55,6 +56,12 @@ npx website-api ext info chase
 npx website-api ext install chase         # interactive y/N confirmation
 npx website-api ext install chase -y      # skip the prompt (scripts/CI)
 npx website-api chase                     # run it like any bundled site
+```
+
+Alternatively, you can download/update and execute a site directly from the registry in a single command (always bypasses the local catalog cache):
+
+```bash
+npx website-api ext run chase             # runs immediately
 ```
 
 `search` caches each registry's catalog for ~1h. Pass `--refresh` to force a
