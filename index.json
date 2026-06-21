@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "commit": "b9b2b468f9027b48591497c11001cd5518758b67",
-  "updatedAt": "2026-06-02T17:19:44.104Z",
+  "commit": "33b1c3b5492f16644d0076696b5635324c935684",
+  "updatedAt": "2026-06-21T15:01:40.630Z",
   "sites": [
     {
       "id": "hackernews",
@@ -15,6 +15,25 @@
         {
           "name": "index.js",
           "sha256": "88428de3247cb37ca7e25fdf1d55089a71ffc8f2883cdd7bd8382770aad07b5b"
+        }
+      ]
+    },
+    {
+      "id": "microcenter",
+      "name": "Micro Center",
+      "domain": "microcenter.com",
+      "description": "Scrape Micro Center Apple search results — Mac desktops and/or MacBooks — into structured JSON (browser transport, parses with cheerio). Defaults to both categories; pick one with --mac / --macbook.",
+      "transport": "browser",
+      "auth": false,
+      "path": "sites/microcenter.com",
+      "files": [
+        {
+          "name": "index.js",
+          "sha256": "37e130a2148237d6630fdacdbf6a282da27aa93903942d93e841e893283d993a"
+        },
+        {
+          "name": "microcenter-helper.js",
+          "sha256": "ffa12e6d4fd59f010e1ed24d3cda4ebbe4f84dbc0be5b4c77ffc5e3f397500f1"
         }
       ]
     }
