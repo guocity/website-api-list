@@ -3,9 +3,10 @@
 // (transport, cookies, parameters, run, …). Sibling files like this one's
 // `microcenter-helper.js` are shipped alongside and imported relatively.
 //
-// The helper (and its cheerio dependency) is imported lazily inside run() so
-// that merely loading this module to read its metadata — e.g. the registry's
-// catalog generator — never needs cheerio. It's only required at run time.
+// HTML parsing uses the host's cheerio via `ctx.loadHtml(html)` — an installed
+// extension can't resolve its own `node_modules`, so it never imports cheerio
+// directly.
+import { CATEGORY_URLS, parseProducts } from "./microcenter-helper.js";
 
 /**
  * Micro Center has no public product API, so we render its search-results pages
@@ -19,14 +20,15 @@
 const DEFAULT_STORE = "075";
 
 /** Navigate to a category page, wait for the product grid, and parse it. */
-async function scrapeCategory(page, url, log, parseHtml, retries = 3) {
+async function scrapeCategory(ctx, page, url, log, retries = 3) {
   let lastErr;
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       log(`[microcenter] fetching ${url} (attempt ${attempt}/${retries})`);
       await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60_000 });
       await page.waitForSelector("li.product_wrapper", { timeout: 30_000 });
-      const products = parseHtml(await page.content(), url);
+      const $ = await ctx.loadHtml(await page.content());
+      const products = parseProducts($, url);
       log(`[microcenter] parsed ${products.length} products`);
       return products;
     } catch (e) {
@@ -64,9 +66,6 @@ export default {
   ],
 
   run: async (ctx) => {
-    // Lazy-load the parser (pulls in cheerio) only when actually scraping.
-    const { CATEGORY_URLS, parseHtml } = await import("./microcenter-helper.js");
-
     // With neither flag set, scrape both categories (the default).
     const wantMac = !!ctx.options.mac;
     const wantMacbook = !!ctx.options.macbook;
@@ -83,7 +82,7 @@ export default {
     const byCategory = {};
     for (const category of categories) {
       const url = CATEGORY_URLS[category](storeId);
-      const rows = await scrapeCategory(page, url, log, parseHtml);
+      const rows = await scrapeCategory(ctx, page, url, log);
       byCategory[category] = rows.length;
       products.push(...rows);
     }

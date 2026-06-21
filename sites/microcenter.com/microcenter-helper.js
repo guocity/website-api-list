@@ -1,19 +1,19 @@
-import * as cheerio from "cheerio";
-
 /**
- * Pure parsing helpers for Micro Center search-result pages. Kept free of any
- * browser/network dependency so they can be reasoned about / tested against
- * captured HTML (and skipped by the site loader, per the `-helper` convention).
+ * Pure parsing helpers for Micro Center search-result pages.
+ *
+ * This extension imports **no external packages** — an installed extension lives
+ * under ~/.config/website-api/extensions/ where a bare `import "cheerio"` can't
+ * resolve the host's node_modules. Instead `parseProducts` receives a cheerio
+ * document (`$`) that the host hands over via `ctx.loadHtml(html)`, so the
+ * host's bundled cheerio does the work and nothing needs to be bundled here.
  */
-
-const ORIGIN = "https://www.microcenter.com";
 
 /** Search-result URLs per category. `N` codes are Micro Center's facet ids. */
 export const CATEGORY_URLS = {
   mac: (storeId) =>
-    `${ORIGIN}/search/search_results.aspx?N=4294967292+4294819353&NTK=all&sortby=match&rpp=96&storeid=${storeId}`,
+    `https://www.microcenter.com/search/search_results.aspx?N=4294967292+4294819353&NTK=all&sortby=match&rpp=96&storeid=${storeId}`,
   macbook: (storeId) =>
-    `${ORIGIN}/search/search_results.aspx?N=4294967288+4294820432&NTK=all&sortby=match&rpp=96&storeid=${storeId}`,
+    `https://www.microcenter.com/search/search_results.aspx?N=4294967288+4294820432&NTK=all&sortby=match&rpp=96&storeid=${storeId}`,
 };
 
 const COLORS = [
@@ -234,9 +234,11 @@ function urljoin(base, relative) {
   }
 }
 
-/** Parse a Micro Center search-results HTML document into product records. */
-export function parseHtml(html, pageUrl) {
-  const $ = cheerio.load(html);
+/**
+ * Parse a Micro Center search-results document into product records.
+ * `$` is a cheerio document from the host (`ctx.loadHtml(html)`).
+ */
+export function parseProducts($, pageUrl) {
   const results = [];
 
   $("li.product_wrapper").each((_i, el) => {
