@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "commit": "0bc1956da900ab28c219ca208a98355a815075d9",
-  "updatedAt": "2026-06-21T15:45:29.028Z",
+  "commit": "f12497c0cad4f6f3afae5a115c8fedc0edd67ba7",
+  "updatedAt": "2026-06-21T16:10:01.733Z",
   "sites": [
     {
       "id": "hackernews",
@@ -33,7 +33,7 @@
         },
         {
           "name": "microcenter-helper.js",
-          "sha256": "b47354db82c8108d94936130b50a12c3e2de9b53d5b3c8abaa9ecb6a1c49a844"
+          "sha256": "d3017a3c45c2a7a0fc37dff382195b14aec6df75d3f528bf822ae88273af96df"
         }
       ]
     }

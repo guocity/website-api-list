@@ -8,12 +8,15 @@
  * host's bundled cheerio does the work and nothing needs to be bundled here.
  */
 
+export const ORIGIN = "https://www.microcenter.com";
+export const SEARCH_BASE = `${ORIGIN}/search/search_results.aspx`;
+
 /** Search-result URLs per category. `N` codes are Micro Center's facet ids. */
 export const CATEGORY_URLS = {
   mac: (storeId) =>
-    `https://www.microcenter.com/search/search_results.aspx?N=4294967292+4294819353&NTK=all&sortby=match&rpp=96&storeid=${storeId}`,
+    `${SEARCH_BASE}?N=4294967292+4294819353&NTK=all&sortby=match&rpp=96&storeid=${storeId}`,
   macbook: (storeId) =>
-    `https://www.microcenter.com/search/search_results.aspx?N=4294967288+4294820432&NTK=all&sortby=match&rpp=96&storeid=${storeId}`,
+    `${SEARCH_BASE}?N=4294967288+4294820432&NTK=all&sortby=match&rpp=96&storeid=${storeId}`,
 };
 
 const COLORS = [
